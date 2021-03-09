@@ -8,7 +8,7 @@ const PostList = () => {
     const [posts, setPosts] = useState({});
 
     const fetchPosts = async () => {
-        const res = await axios.get('http://localhost:4000/posts');
+        const res = await axios.get('http://localhost:4002/posts');
         setPosts(res.data);
     }
     
@@ -20,14 +20,14 @@ const PostList = () => {
         return <div key={post.id} className="card bg-light bg-gradient" style={{ width: '30%', marginBottom: '20px' }}>
             <div className="card-body d-flex flex-column justify-content-between ">
                 <h3>{post.title}</h3>
-                <CommentList postId={post.id} />
+                <CommentList comments={post.comments} />
                 <CommentCreate postId={post.id}/>
             </div>
         </div>
     });
 
     return <div className="d-flex flex-row flex-wrap justify-content-between border border-info p-3">
-        {renderedPosts}
+        {renderedPosts.length === 0 ? <p>No posts yet. Create one!</p> : renderedPosts}
     </div>;
 
 };
